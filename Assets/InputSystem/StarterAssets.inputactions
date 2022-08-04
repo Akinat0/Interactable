@@ -366,17 +366,6 @@
                     "action": "InventoryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "862c39ab-d3ff-4569-a356-361b79094a8d",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "Clamp(min=1,max=1)",
-                    "groups": "KeyboardMouse",
-                    "action": "InventoryInput",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -653,17 +642,6 @@
                     "path": "<Keyboard>/9",
                     "interactions": "Press",
                     "processors": "Scale(factor=9)",
-                    "groups": "KeyboardMouse",
-                    "action": "InventoryInput",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f44fc75c-eaf9-4a1d-9ec5-c374fddbbce0",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "Press",
-                    "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "InventoryInput",
                     "isComposite": false,

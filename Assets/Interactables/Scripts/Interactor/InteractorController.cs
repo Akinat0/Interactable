@@ -81,7 +81,6 @@ public class InteractorController : MonoBehaviour
 
     void Update()
     {
-        UpdatePhysics();
         UpdatePointerPosition();
         UpdateRaycastBuffer();
         UpdateSelectedItem();
@@ -90,6 +89,7 @@ public class InteractorController : MonoBehaviour
         UpdateInputs();
         UpdateGhost();
         UpdateZoomedItem();
+        UpdatePhysics();
         UpdateHeldItemPosition();
         ClearInputBuffer();
     }
@@ -110,6 +110,9 @@ public class InteractorController : MonoBehaviour
     
     void UpdateRaycastBuffer()
     {
+        for (int i = 0; i < hitBuffer.Length; i++)
+            hitBuffer[i] = new RaycastHit();
+
         Ray ray = Camera.ScreenPointToRay(PointerPosition);
         Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.red);
         int collisionsCount = Physics.RaycastNonAlloc(ray, hitBuffer, interactionDistance, IsZoomed ? overlayLayerMask : Physics.DefaultRaycastLayers);
@@ -218,8 +221,9 @@ public class InteractorController : MonoBehaviour
             if(itemReceiver != null)
                 return;
         }
-            
-        itemReceiver = SelectedItem.GetComponents<ItemReceiver>().FirstOrDefault(receiver => receiver.CanReceive(HeldItem));
+        
+        if(SelectedItem != null)
+            itemReceiver = SelectedItem.GetComponents<ItemReceiver>().FirstOrDefault(receiver => receiver.CanReceive(HeldItem));
     }
 
     void UpdateInputs()
@@ -342,8 +346,7 @@ public class InteractorController : MonoBehaviour
             }
             
         }
-        
-        if (SelectedItem != null)
+        else if (SelectedItem != null)
         {
             if (SelectedItem.gameObject.TryGetComponent(out MovableItem movableItem))
             {
@@ -463,8 +466,12 @@ public class InteractorController : MonoBehaviour
             return;
         }
 
+        Vector3 position = heldItemPivot.position;
+        Vector3 up = position + zoomedItemPivot.up;
+        Vector3 right = position + zoomedItemPivot.right;
         
-        Plane plane = new (heldItemPivot.transform.position, Vector3.forward, Vector3.right);
+        Plane plane = new (position, up, right);
+
         Ray ray = Camera.ScreenPointToRay(PointerPosition);
         
         if(!plane.Raycast(ray, out float distance))
