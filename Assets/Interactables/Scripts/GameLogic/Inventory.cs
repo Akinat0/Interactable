@@ -7,11 +7,37 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour, IEnumerable<Item>
 {
-    public event Action Changed; 
+    [SerializeField] InputBuffer inputBuffer;
+    [SerializeField] Interactor interactor;
 
-    readonly List<Item> items = new(10);
+    public event Action Changed;
 
     public int ItemsCount => items.Count;
+    
+    readonly List<Item> items = new(10);
+
+    void Update()
+    {
+        if (!inputBuffer.IsInventoryInput) 
+            return;
+
+        Item item = GetItem(inputBuffer.InventoryInputValue - 1);
+        
+        if(item == null)
+            return;
+
+        GrabAction grabAction = item.GetAction<GrabAction>();
+        
+        grabAction.TakeFromInventory(interactor);
+        
+        //clear input
+        inputBuffer.IsInventoryInput = false;
+    }
+    
+    public int IndexOf(Item item)
+    {
+        return items.IndexOf(item);
+    }
 
     public void AddItem(Item item)
     {
@@ -36,11 +62,7 @@ public class Inventory : MonoBehaviour, IEnumerable<Item>
         return item;
     }
 
-    public bool HasItem(int index) => index >= 0 && index < ItemsCount;
-
     public IEnumerator<Item> GetEnumerator() => items.GetEnumerator();
-    
-
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     
 }

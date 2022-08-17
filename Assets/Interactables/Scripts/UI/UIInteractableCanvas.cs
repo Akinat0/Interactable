@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using TMPro;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 
 public class UIInteractableCanvas : MonoBehaviour
 {
+    [SerializeField] Interactor interactor;
+    
+    [Space]
     [SerializeField] RectTransform aimRoot;
     [SerializeField] Image aimImageFocused;
     [SerializeField] Image aimImageUnfocused;
@@ -32,7 +36,28 @@ public class UIInteractableCanvas : MonoBehaviour
         
         actionsPool = new ObjectPool<UIInteractableAction>(CreateAction, GetAction, ReleaseAction, defaultCapacity:2);
     }
-    
+
+    void Update()
+    {
+        Item displayItem = GetDisplayItem();
+        
+        SetFocused(interactor.SelectedItem != null);
+        SetPointerPosition(interactor.Pointer.Position);
+        SetItemId(displayItem ? displayItem.Id : null);
+        
+        ClearActions();
+        
+        if(displayItem == null)
+            return;
+        
+        foreach (ItemAction action in displayItem.GetActions())
+        {
+            string description = action.GetDescription(interactor);
+            if(description != null)
+                AddAction(action.Control, description);
+        }
+    }
+
     void OnDestroy()
     {
         actionsPool.Dispose();
@@ -81,6 +106,17 @@ public class UIInteractableCanvas : MonoBehaviour
         ActiveActions.Add(action);
         action.Icon = icons.Get(control);
         action.Text = text;
+    }
+    
+    Item GetDisplayItem()
+    {
+        return interactor.ZoomedItem != null 
+            ? interactor.ZoomedItem 
+            : interactor.HeldItem != null 
+                ? interactor.HeldItem 
+                : interactor.SelectedItem != null 
+                    ? interactor.SelectedItem 
+                    : null;
     }
     
     UIInteractableAction CreateAction()

@@ -50,7 +50,7 @@ public class UIInventoryCanvas : MonoBehaviour
             UIInventoryItem uiItem = itemsPool.Get();
             activeItems.Add(uiItem);
             
-            uiItem.Name = item.Name;
+            uiItem.Name = item.Id;
             uiItem.SetIndex(i + 1);
         }
     }

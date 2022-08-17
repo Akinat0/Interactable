@@ -41,31 +41,40 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/ReceiveAction.cs" />
+     <Compile Include="Assets/Interactables/Scripts/UI/UIInventoryItem.cs" />
      <Compile Include="Assets/Scripts/FirstPersonController.cs" />
-     <Compile Include="Assets/Interactables/Scripts/InputBuffer.cs" />
-     <Compile Include="Assets/Interactables/Scripts/GameObjectExtension.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/InteractorAnimator.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/InputBuffer.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/ItemAction.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/PointerRaycaster.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/MoveAction.cs" />
+     <Compile Include="Assets/Interactables/Scripts/Utilities/GameObjectExtension.cs" />
      <Compile Include="Assets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs" />
      <Compile Include="Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Item/MovableItem.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Item/ItemReceiver.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Item/Item.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Interactor.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/ZoomAction.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/ItemGhostController.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/InteractAction.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/Item.cs" />
      <Compile Include="Assets/Mobile/Scripts/VirtualInputs/UIVirtualButton.cs" />
      <Compile Include="Assets/InputSystem/StarterAssetsInputs.cs" />
-     <Compile Include="Assets/Interactables/Scripts/TimeManager.cs" />
-     <Compile Include="Assets/Mobile/Scripts/CanvasInputs/UICanvasControllerInput.cs" />
-     <Compile Include="Assets/Mobile/Scripts/Utilities/MobileDisableAutoSwitchControls.cs" />
-     <Compile Include="Assets/Interactables/Scripts/PostProcessing.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Coroutines.cs" />
-     <Compile Include="Assets/Interactables/Scripts/UI/UIInteractableCanvas.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Interactor/InteractorController.cs" />
-     <Compile Include="Assets/Scripts/BasicRigidBodyPush.cs" />
-     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
      <Compile Include="Assets/Interactables/Scripts/UI/UIInteractableAction.cs" />
      <Compile Include="Assets/Interactables/Scripts/UI/UIIcons.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Inventory/Inventory.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/TimeManager.cs" />
+     <Compile Include="Assets/Mobile/Scripts/CanvasInputs/UICanvasControllerInput.cs" />
+     <Compile Include="Assets/Mobile/Scripts/Utilities/MobileDisableAutoSwitchControls.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/PostProcessing.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Layers.cs" />
      <Compile Include="Assets/Interactables/Scripts/UI/UIInventoryCanvas.cs" />
-     <Compile Include="Assets/Interactables/Scripts/UI/UIInventoryItem.cs" />
-     <Compile Include="Assets/Interactables/Scripts/Item/InteractableItem.cs" />
+     <Compile Include="Assets/Interactables/Scripts/Utilities/Coroutines.cs" />
+     <Compile Include="Assets/Interactables/Scripts/UI/UIInteractableCanvas.cs" />
+     <Compile Include="Assets/Scripts/BasicRigidBodyPush.cs" />
+     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/ZoomedItemController.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Inventory.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Pointer.cs" />
+     <Compile Include="Assets/Interactables/Scripts/GameLogic/Item/GrabAction.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
@@ -725,20 +734,11 @@
      <Reference Include="mscorlib">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.6f1/Unity.app/Contents/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Flow.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.RenderPipelines.Universal.Shaders">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="PPv2URPConverters">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -749,38 +749,17 @@
      <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Timeline">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Core.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Core.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.TextMeshPro">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.State.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Burst.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Searcher.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Searcher.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.RenderPipelines.Core.Runtime">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Flow">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
@@ -797,26 +776,68 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.PlasticSCM.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Core">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Core.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.EditorCoroutines.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.EditorCoroutines.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
      </Reference>
      <Reference Include="Unity.ShaderGraph.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Cinemachine">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+     </Reference>
+     <Reference Include="com.unity.cinemachine.editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Mathematics.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Flow.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="PPv2URPConverters">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualStudio.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Timeline">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Core.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.TextMeshPro">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Burst.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Sprite.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Core.Runtime">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Flow">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.PlasticSCM.Editor">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Services.Core">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Services.Core.dll</HintPath>
      </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+     <Reference Include="Unity.VisualScripting.Core">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Core.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Mathematics">
+     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Services.Core.Analytics">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Services.Core.Analytics.dll</HintPath>
@@ -827,9 +848,6 @@
      <Reference Include="Unity.RenderPipelines.Universal.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.VisualScripting.Shared.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.Shared.Editor.dll</HintPath>
      </Reference>
@@ -839,14 +857,8 @@
      <Reference Include="Unity.Timeline.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Mathematics.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TestTools.CodeCoverage.Editor">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
@@ -856,9 +868,6 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Sprite.Editor">
-     <HintPath>/Users/amir/RiderProjects/Interactable/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

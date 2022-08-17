@@ -8,7 +8,6 @@ using UnityEngine.Rendering.Universal;
 //this class would be better with animator
 public class PostProcessing : MonoBehaviour
 {
-    public static PostProcessing Instance { get; private set; }
 
     Volume postProcessVolume;
     Volume PostProcessVolume
@@ -48,7 +47,6 @@ public class PostProcessing : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
         DepthOfField.active = false;
         LiftGammaGain.active = false;
         DepthOfField.focusDistance.value = 1;
@@ -81,7 +79,7 @@ public class PostProcessing : MonoBehaviour
         while (time < duration)
         {
             yield return null;
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
 
             float phase = time / duration;
 
@@ -108,7 +106,7 @@ public class PostProcessing : MonoBehaviour
         while (time < duration)
         {
             yield return null;
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
 
             float phase = time / duration;
 

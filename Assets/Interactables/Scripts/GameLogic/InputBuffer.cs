@@ -3,17 +3,14 @@ using UnityEngine.InputSystem;
 
 public class InputBuffer : MonoBehaviour
 {
-    public static InputBuffer Instance { get; set; }
-
     PlayerInput playerInput;
 
     CursorLockMode cursorLockMode;
 
     void Awake()
     {
-        Instance = this;
         playerInput = GetComponent<PlayerInput>();
-        Cursor.lockState = Instance.cursorLockMode = CursorLockMode.Locked;
+        Cursor.lockState = cursorLockMode = CursorLockMode.Locked;
     }
     
     public bool IsZoomIn { get; set; }
@@ -29,23 +26,23 @@ public class InputBuffer : MonoBehaviour
     public void SetZoomedItemActionsMap()
     {
         Cursor.visible = false;
-        Cursor.lockState = Instance.cursorLockMode = CursorLockMode.Confined;
-        Instance.playerInput.SwitchCurrentActionMap("ZoomedItem");
+        Cursor.lockState = cursorLockMode = CursorLockMode.Confined;
+        playerInput.SwitchCurrentActionMap("ZoomedItem");
     }
 
     public void SetPlayerActionMap()
     {
-        Cursor.lockState = Instance.cursorLockMode = CursorLockMode.Locked;
-        Instance.playerInput.SwitchCurrentActionMap("Player");
+        Cursor.lockState = cursorLockMode = CursorLockMode.Locked;
+        playerInput.SwitchCurrentActionMap("Player");
     }
+
+    #region input system events
     
-    //input system event
     void OnInteractInput()
     {
         IsInteract = true;
     }
     
-    //input system event
     void OnZoomInput()
     {
         IsZoomIn = true;
@@ -78,10 +75,12 @@ public class InputBuffer : MonoBehaviour
         Debug.Log(InventoryInputValue);
     }
     
+    #endregion
+    
     void OnApplicationFocus(bool hasFocus)
     {
         if(hasFocus)
-            Cursor.lockState = Instance.cursorLockMode;
+            Cursor.lockState = cursorLockMode;
     }
 }
 
